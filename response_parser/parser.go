@@ -14,12 +14,12 @@ func New(data fetcher.ResponseData) Parser {
 }
 
 const (
-	Q1                = "03-31"
-	Q2                = "06-30"
-	Q3                = "09-30"
-	Q4                = "12-31"
-	monthStartIndex   = 5  // 2019-06-30
-	balanceSheetCount = 60 // to decide data is bs or is
+	Q1              = "03-31"
+	Q2              = "06-30"
+	Q3              = "09-30"
+	Q4              = "12-31"
+	monthStartIndex = 5 // 2019-06-30
+	balanceSheetKey = "AccountsPayable"
 )
 
 type parserData struct {
@@ -110,16 +110,10 @@ func quarter(date string) int {
 }
 
 func isBalanceSheetData(data quarterlyData) bool {
-	count := keyCount(data)
-	return count > balanceSheetCount
-}
-
-func keyCount(data quarterlyData) int {
-	count := 0
-	for range data {
-		count++
+	if _, ok := data[balanceSheetKey]; !ok {
+		return false
 	}
-	return count
+	return true
 }
 
 func toIncomeStatement(data quarterlyData) finance_report.IncomeStatementData {
@@ -130,8 +124,10 @@ func toIncomeStatement(data quarterlyData) finance_report.IncomeStatementData {
 	for i := 0; i < elm.NumField(); i++ {
 		f := elm.Field(i)
 		name := typeOf.Field(i).Name
-		val, _ := data[name].(float64)
-		f.SetFloat(val)
+		if val, ok := data[name]; ok {
+			v, _ := val.(float64)
+			f.SetFloat(v)
+		}
 	}
 	return result
 }
@@ -144,8 +140,10 @@ func toBalanceSheet(data quarterlyData) finance_report.BalanceSheetData {
 	for i := 0; i < elm.NumField(); i++ {
 		f := elm.Field(i)
 		name := typeOf.Field(i).Name
-		val, _ := strconv.ParseInt(data[name].(string), 10, 32)
-		f.SetInt(val)
+		if val, ok := data[name]; ok {
+			v, _ := strconv.ParseInt(val.(string), 11, 32)
+			f.SetInt(v)
+		}
 	}
 	return result
 }

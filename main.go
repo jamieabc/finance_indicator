@@ -20,6 +20,7 @@ func main() {
 		return
 	}
 
+	// TODO: merge two operations into one, abstraction is wrong, to many couplings
 	respIS, err := fetcher.FetchIS(string(os.Args[1]), dateRange.NewRange(dateRange.ThisYear))
 	if nil != err {
 		fmt.Printf("fetch with error: %s\n", err)
