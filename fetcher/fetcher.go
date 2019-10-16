@@ -23,6 +23,10 @@ const (
 	Dividend
 )
 
+const (
+	responseOK = 200
+)
+
 var keyMapping map[dataKey]string
 
 type parameter struct {
@@ -31,15 +35,16 @@ type parameter struct {
 	Date    string `json:"date"`
 }
 
-type dataType struct {
+type ResponseData struct {
 	Date     []string  `json:"date"`
 	StockID  []string  `json:"stock_id"`
 	DataType []string  `json:"type"`
 	Value    []float64 `json:"value"`
 }
 
-type incomeStatement struct {
-	Data dataType `json:"data"`
+type response struct {
+	Data   ResponseData `json:"data"`
+	Status int          `json:"status"`
 }
 
 func init() {
@@ -49,7 +54,9 @@ func init() {
 	keyMapping[Dividend] = "StockDividend"
 }
 
-func Fetch(stockID string, r dateRange.Ranger) (interface{}, error) {
+// TODO: too long function
+// Fetch - fetch data from server
+func Fetch(stockID string, r dateRange.Ranger) (ResponseData, error) {
 	param := parameter{
 		Data:    keyMapping[IncomeStatement],
 		StockID: stockID,
@@ -57,30 +64,39 @@ func Fetch(stockID string, r dateRange.Ranger) (interface{}, error) {
 	}
 	params, err := json.Marshal(param)
 	if nil != err {
-		return nil, err
+		return ResponseData{}, err
 	}
 
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(params))
 	if nil != err {
-		return nil, err
+		return ResponseData{}, err
 	}
 	request.Header.Set("Content-Type", contentType)
 	client := &http.Client{}
 	resp, err := client.Do(request)
 	if nil != err {
-		return nil, err
+		return ResponseData{}, err
 	}
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+	if nil != err {
+		fmt.Printf("read response body with error: %s\n", err)
+		return ResponseData{}, err
+	}
 
-	var i incomeStatement
-	fmt.Printf("body: %v\n", string(body))
-	err = json.Unmarshal(body, &i)
+	var rs response
+	err = json.Unmarshal(body, &rs)
 	if nil != err {
 		fmt.Printf("unmarshal error: %s\n", err)
-		return nil, err
+		return ResponseData{}, err
 	}
-	fmt.Printf("body: %v\n", i)
-	return nil, nil
+
+	if rs.Status != responseOK {
+		msg := fmt.Errorf("incorrect response status %d", rs.Status)
+		fmt.Println(msg)
+		return ResponseData{}, msg
+	}
+
+	return rs.Data, nil
 }
