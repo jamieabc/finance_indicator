@@ -141,7 +141,7 @@ func toBalanceSheet(data quarterlyData) finance_report.BalanceSheetData {
 		f := elm.Field(i)
 		name := typeOf.Field(i).Name
 		if val, ok := data[name]; ok {
-			v, _ := strconv.ParseInt(val.(string), 11, 32)
+			v, _ := strconv.ParseInt(val.(string), 10, 32)
 			f.SetInt(v)
 		}
 	}
