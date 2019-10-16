@@ -36,10 +36,10 @@ type parameter struct {
 }
 
 type ResponseData struct {
-	Date     []string  `json:"date"`
-	StockID  []string  `json:"stock_id"`
-	DataType []string  `json:"type"`
-	Value    []float64 `json:"value"`
+	Date     []string      `json:"date"`
+	StockID  []string      `json:"stock_id"`
+	DataType []string      `json:"type"`
+	Value    []interface{} `json:"value"`
 }
 
 type response struct {
