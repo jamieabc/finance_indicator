@@ -48,10 +48,11 @@ type response struct {
 }
 
 func init() {
-	keyMapping = make(map[dataKey]string)
-	keyMapping[IncomeStatement] = "FinancialStatements"
-	keyMapping[BalanceSheet] = "BalanceSheet"
-	keyMapping[Dividend] = "StockDividend"
+	keyMapping = map[dataKey]string{
+		IncomeStatement: "FinancialStatements",
+		BalanceSheet:    "BalanceSheet",
+		Dividend:        "StockDividend",
+	}
 }
 
 // TODO: too long function
