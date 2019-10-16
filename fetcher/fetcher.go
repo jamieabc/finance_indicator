@@ -56,8 +56,8 @@ func init() {
 }
 
 // TODO: too long function
-// Fetch - fetch data from server
-func Fetch(stockID string, r dateRange.Ranger) (ResponseData, error) {
+// Fetch - fetch income statement data from server
+func FetchIS(stockID string, r dateRange.Ranger) (ResponseData, error) {
 	param := parameter{
 		Data:    keyMapping[IncomeStatement],
 		StockID: stockID,
@@ -68,6 +68,25 @@ func Fetch(stockID string, r dateRange.Ranger) (ResponseData, error) {
 		return ResponseData{}, err
 	}
 
+	return doFetch(params)
+}
+
+// FetchBS - fetch balance sheet data from server
+func FetchBS(stockID string, r dateRange.Ranger) (ResponseData, error) {
+	param := parameter{
+		Data:    keyMapping[BalanceSheet],
+		StockID: stockID,
+		Date:    r.String(),
+	}
+	params, err := json.Marshal(param)
+	if nil != err {
+		return ResponseData{}, err
+	}
+
+	return doFetch(params)
+}
+
+func doFetch(params []byte) (ResponseData, error) {
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(params))
 	if nil != err {
 		return ResponseData{}, err
