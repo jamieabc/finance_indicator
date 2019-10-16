@@ -1,68 +1,56 @@
 package finance_report
 
 type BalanceSheetData struct {
-	AccountsPayable                                        int
-	AccountsPayable_per                                    int
-	AccountsReceivableNet                                  int
-	AccountsReceivableNet_per                              int
-	CapitalStock                                           int
-	CapitalStock_per                                       int
-	CapitalSurplus                                         int
-	CapitalSurplus_per                                     int
-	CapitalSurplusAdditionalPaidInCapital                  int
-	CapitalSurplusAdditionalPaidInCapital_per              int
-	CashAndCashEquivalents                                 int
-	CashAndCashEquivalents_per                             int
-	CurrentAssets                                          int
-	CurrentAssets_per                                      int
-	CurrentLiabilities                                     int
-	CurrentLiabilities_per                                 int
-	CurrentProvisions                                      int
-	CurrentProvisions_per                                  int
-	DeferredTaxAssets                                      int
-	DeferredTaxAssets_per                                  int
-	Equity                                                 int
-	Equity_per                                             int
-	EquityAttributableToOwnersOfParent                     int
-	EquityAttributableToOwnersOfParent_per                 int
-	EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare int
-	IntangibleAssets                                       int
-	IntangibleAssets_per                                   int
-	Inventories                                            int
-	Inventories_per                                        int
-	LegalReserve                                           int
-	LegalReserve_per                                       int
-	Liabilities                                            int
-	Liabilities_per                                        int
-	LongtermBorrowings                                     int
-	LongtermBorrowings_per                                 int
-	NoncontrollingInterests                                int
-	NoncontrollingInterests_per                            int
-	NoncurrentAssets                                       int
-	NoncurrentAssets_per                                   int
-	NoncurrentLiabilities                                  int
-	NoncurrentLiabilities_per                              int
-	NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries int
-	OrdinaryShare                                          int
-	OrdinaryShare_per                                      int
-	OtherCurrentAssets                                     int
-	OtherCurrentAssets_per                                 int
-	OtherCurrentLiabilities                                int
-	OtherCurrentLiabilities_per                            int
-	OtherEquityInterest                                    int
-	OtherEquityInterest_per                                int
-	OtherNoncurrentAssets                                  int
-	OtherNoncurrentAssets_per                              int
-	OtherNoncurrentLiabilities                             int
-	OtherNoncurrentLiabilities_per                         int
-	OtherPayables                                          int
-	OtherPayables_per                                      int
-	OtherReceivable                                        int
-	OtherReceivable_per                                    int
-	PropertyPlantAndEquipment                              int
-	PropertyPlantAndEquipment_per                          int
-	RetainedEarnings                                       int
-	RetainedEarnings_per                                   int
-	UnappropriatedRetainedEarningsAaccumulatedDeficit      int
-	UnappropriatedRetainedEarningsAaccumulatedDeficit_per  int
+	CashAndCashEquivalents                                                                 int //	現金及約當現金
+	CurrentFinancialAssetsAtFairvalueThroughProfitOrLoss                                   int //	透過損益按公允價值衡量之金融資產－流動
+	CurrentAvailableForSaleFinancialAssets                                                 int //	備供出售金融資產－流動淨額
+	CurrentHeldToMaturityFinancialAssets                                                   int //	持有至到期日金融資產－流動淨額
+	AccountsReceivableNet                                                                  int //	應收帳款淨額
+	AccountsReceivableDuefromRelatedPartiesNet                                             int //	應收帳款－關係人淨額
+	OtherReceivablesDueFromRelatedParties                                                  int //	其他應收款－關係人淨額
+	Inventories                                                                            int //	存貨
+	OtherCurrentAssets                                                                     int //	其他流動資產
+	CurrentAssets                                                                          int //	流動資產合計
+	InvestmentAccountedForUsingEquityMethod                                                int //	採用權益法之投資淨額
+	PropertyPlantAndEquipment                                                              int //	不動產、廠房及設備
+	IntangibleAssets                                                                       int //	無形資產
+	DeferredTaxAssets                                                                      int //	遞延所得稅資產
+	OtherNoncurrentAssets                                                                  int //	其他非流動資產
+	NoncurrentAssets                                                                       int //	非流動資產合計
+	ShorttermBorrowings                                                                    int //	短期借款
+	CurrentFinancialLiabilitiesAtFairValueThroughProfitOrLoss                              int //	透過損益按公允價值衡量之金融負債－流動
+	CurrentDerivativeFinancialLiabilitiesForHedging                                        int //	避險之衍生金融負債－流動
+	AccountsPayable                                                                        int //	應付帳款
+	AccountsPayableToRelatedParties                                                        int //	應付帳款－關係人
+	OtherPayables                                                                          int //	其他應付款
+	CurrentTaxLiabilities                                                                  int //	當期所得稅負債
+	CurrentProvisions                                                                      int //	負債準備－流動
+	OtherCurrentLiabilities                                                                int //	其他流動負債
+	CurrentLiabilities                                                                     int //	流動負債合計
+	BondsPayable                                                                           int //	應付公司債
+	LongtermBorrowings                                                                     int //	長期借款
+	OtherNoncurrentLiabilities                                                             int //	其他非流動負債
+	NoncurrentLiabilities                                                                  int //	非流動負債合計
+	Liabilities                                                                            int //	負債總
+	OrdinaryShare                                                                          int //	普通股股本
+	CapitalStock                                                                           int //	股本合計
+	CapitalSurplusAdditionalPaidInCapital                                                  int //	資本公積－發行溢價
+	CapitalSurplusChangesInOwnershipInterestsInSubsidiaries                                int //	資本公積－取得或處分子公司股權價格與帳面價值差額
+	CapitalSurplusDonatedAssetsReceived                                                    int //	資本公積－受贈資產
+	CapitalSurplusChangesInEquityOfAssociatesAndJointVenturesAccountedForUsingEquityMethod int //	資本公積－採用權益法認列關聯企業及合資股權淨值之變動數
+	CapitalSurplusNetAssetsFromMerger                                                      int //	資本公積－合併溢額
+	CapitalSurplus                                                                         int //	資本公積合計
+	LegalReserve                                                                           int //	法定盈餘公積
+	UnappropriatedRetainedEarningsAaccumulatedDeficit                                      int //	未分配盈餘
+	RetainedEarnings                                                                       int //	保留盈餘合計
+	OtherEquityInterest                                                                    int //	其他權益合計
+	EquityAttributableToOwnersOfParent                                                     int //	歸屬於母公司業主之權益合計
+	NoncontrollingInterests                                                                int //	非控制權益
+	Equity                                                                                 int //	權益總額
+	EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare                                 int //	預收股款（權益項下）之約當發行股數
+	NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries                                 int //	母公司暨子公司所持有之母公司庫藏股股數
+	NonCurrentAvailableForSaleFinancialAssets                                              int //	備供出售金融資產－非流動淨額
+	ConstructionContractReceivable                                                         int //	應收建造合約款
+	OtherReceivable                                                                        int //	其他應收款淨額
+	CurrentIncomeTaxAssets                                                                 int // 本期所得稅資產
 }
