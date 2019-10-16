@@ -48,7 +48,7 @@ func showHelp() {
 func merge(is []finance_report.ReportData, bs []finance_report.ReportData) []finance_report.ReportData {
 	result := make([]finance_report.ReportData, len(is))
 	for i, v := range is {
-		result[i].IncomeStatementData = v.IncomeStatementData
+		result[i] = v
 		result[i].BalanceSheetData = bs[i].BalanceSheetData
 	}
 	return result

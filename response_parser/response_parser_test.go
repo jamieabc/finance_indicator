@@ -382,6 +382,8 @@ func TestParseWhenBalanceSheet(t *testing.T) {
 	assert.NotNil(t, p, "nil interface")
 
 	result := p.Parse()
+	assert.Equal(t, 2, result[0].Quarter, "wrong quarter")
+	assert.Equal(t, 2019, result[0].Year, "wrong year")
 	assert.Equal(t, 1, len(result), "wrong array size")
 	assert.Equal(t, 10, result[0].BalanceSheetData.UnappropriatedRetainedEarningsAaccumulatedDeficit_per, "wrong result")
 	assert.Equal(t, 177875000, result[0].BalanceSheetData.UnappropriatedRetainedEarningsAaccumulatedDeficit, "wrong result")
@@ -393,6 +395,8 @@ func TestParseWhenIncomeStatement(t *testing.T) {
 	assert.NotNil(t, p, "nil interface")
 
 	result := p.Parse()
+	assert.Equal(t, 2, result[0].Quarter, "wrong quarter")
+	assert.Equal(t, 2019, result[0].Year, "wrong year")
 	assert.Equal(t, 1, len(result), "wrong array size")
 	assert.Equal(t, -1588000.0, result[0].IncomeStatementData.TotalNonoperatingIncomeAndExpense, "wrong result")
 	assert.Equal(t, 32123000.0, result[0].IncomeStatementData.TotalConsolidatedProfitForThePeriod, "wrong result")

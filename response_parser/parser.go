@@ -18,6 +18,7 @@ const (
 	Q2                = "06-30"
 	Q3                = "09-30"
 	Q4                = "12-31"
+	monthStartIndex   = 5  // 2019-06-30
 	balanceSheetCount = 60 // to decide data is bs or is
 )
 
@@ -32,7 +33,7 @@ func (p parserData) Parse() []finance_report.ReportData {
 	categorized := categorizeData(p.data)
 	sorted := sortString(sliceKeys(p.data.Date))
 	for _, v := range sorted {
-		result = append(result, toObject(categorized[v]))
+		result = append(result, toObject(v, categorized[v]))
 	}
 
 	return result
@@ -76,10 +77,13 @@ func sortString(s []string) sort.StringSlice {
 	return result
 }
 
-func toObject(data quarterlyData) finance_report.ReportData {
+func toObject(date string, data quarterlyData) finance_report.ReportData {
+	year, _ := strconv.ParseInt(date[0:4], 10, 32)
 	result := finance_report.ReportData{
 		IncomeStatementData: finance_report.IncomeStatementData{},
 		BalanceSheetData:    finance_report.BalanceSheetData{},
+		Quarter:             quarter(date),
+		Year:                int(year),
 	}
 
 	if isBalanceSheetData(data) {
@@ -88,6 +92,21 @@ func toObject(data quarterlyData) finance_report.ReportData {
 		result.IncomeStatementData = toIncomeStatement(data)
 	}
 	return result
+}
+
+func quarter(date string) int {
+	switch date[monthStartIndex:] {
+	case Q1:
+		return 1
+	case Q2:
+		return 2
+	case Q3:
+		return 3
+	case Q4:
+		return 4
+	default:
+		return 0
+	}
 }
 
 func isBalanceSheetData(data quarterlyData) bool {
