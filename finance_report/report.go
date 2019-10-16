@@ -1,4 +1,4 @@
-package financeReport
+package finance_report
 
 func New(is IncomeStatementData, bs BalanceSheetData) ReportData {
 	return ReportData{

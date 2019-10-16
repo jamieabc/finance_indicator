@@ -1,4 +1,4 @@
-package dateRange_test
+package date_range_test
 
 import (
 	"fmt"

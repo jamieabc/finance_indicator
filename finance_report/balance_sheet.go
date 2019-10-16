@@ -1,4 +1,4 @@
-package financeReport
+package finance_report
 
 type BalanceSheetData struct {
 	AccountsPayable                                        int

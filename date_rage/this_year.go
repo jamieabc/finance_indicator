@@ -1,4 +1,4 @@
-package dateRange
+package date_range
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package financeReport
+package finance_report
 
 type IncomeStatementData struct {
 	CostOfGoodsSold                       float64

@@ -1,4 +1,4 @@
-package financeReport_test
+package finance_report_test
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package financeReport
+package finance_report
 
 // ReportData - data
 type ReportData struct {
