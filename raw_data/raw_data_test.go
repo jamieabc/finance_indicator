@@ -1,9 +1,9 @@
-package finance_report_test
+package raw_data_test
 
 import (
 	"testing"
 
-	financeReport "github.com/jamieabc/finance_indicator/finance_report"
+	financeReport "github.com/jamieabc/finance_indicator/raw_data"
 	"github.com/stretchr/testify/assert"
 )
 

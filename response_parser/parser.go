@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/jamieabc/finance_indicator/fetcher"
-	"github.com/jamieabc/finance_indicator/finance_report"
+	"github.com/jamieabc/finance_indicator/raw_data"
 )
 
 func New(data fetcher.ResponseData) Parser {
@@ -28,8 +28,8 @@ type parserData struct {
 
 type quarterlyData map[string]interface{}
 
-func (p parserData) Parse() []finance_report.ReportData {
-	result := make([]finance_report.ReportData, 0)
+func (p parserData) Parse() []raw_data.ReportData {
+	result := make([]raw_data.ReportData, 0)
 	categorized := categorizeData(p.data)
 	sorted := sortString(sliceKeys(p.data.Date))
 	for _, v := range sorted {
@@ -77,11 +77,11 @@ func sortString(s []string) sort.StringSlice {
 	return result
 }
 
-func toObject(date string, data quarterlyData) finance_report.ReportData {
+func toObject(date string, data quarterlyData) raw_data.ReportData {
 	year, _ := strconv.ParseInt(date[0:4], 10, 32)
-	result := finance_report.ReportData{
-		IncomeStatementData: finance_report.IncomeStatementData{},
-		BalanceSheetData:    finance_report.BalanceSheetData{},
+	result := raw_data.ReportData{
+		IncomeStatementData: raw_data.IncomeStatementData{},
+		BalanceSheetData:    raw_data.BalanceSheetData{},
 		Quarter:             quarter(date),
 		Year:                int(year),
 	}
@@ -116,8 +116,8 @@ func isBalanceSheetData(data quarterlyData) bool {
 	return true
 }
 
-func toIncomeStatement(data quarterlyData) finance_report.IncomeStatementData {
-	result := finance_report.IncomeStatementData{}
+func toIncomeStatement(data quarterlyData) raw_data.IncomeStatementData {
+	result := raw_data.IncomeStatementData{}
 	elm := reflect.ValueOf(&result).Elem()
 	typeOf := elm.Type()
 
@@ -132,8 +132,8 @@ func toIncomeStatement(data quarterlyData) finance_report.IncomeStatementData {
 	return result
 }
 
-func toBalanceSheet(data quarterlyData) finance_report.BalanceSheetData {
-	result := finance_report.BalanceSheetData{}
+func toBalanceSheet(data quarterlyData) raw_data.BalanceSheetData {
+	result := raw_data.BalanceSheetData{}
 	elm := reflect.ValueOf(&result).Elem()
 	typeOf := elm.Type()
 

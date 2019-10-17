@@ -1,4 +1,4 @@
-package finance_report
+package raw_data
 
 type IncomeStatementData struct {
 	// 營業收入合計

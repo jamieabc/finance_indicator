@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jamieabc/finance_indicator/finance_report"
+	"github.com/jamieabc/finance_indicator/raw_data"
 
 	"github.com/jamieabc/finance_indicator/response_parser"
 	"github.com/k0kubun/pp"
@@ -46,8 +46,8 @@ func showHelp() {
 	fmt.Println("Usage: finance_indicator stockID")
 }
 
-func merge(is []finance_report.ReportData, bs []finance_report.ReportData) []finance_report.ReportData {
-	result := make([]finance_report.ReportData, len(is))
+func merge(is []raw_data.ReportData, bs []raw_data.ReportData) []raw_data.ReportData {
+	result := make([]raw_data.ReportData, len(is))
 	for i, v := range is {
 		result[i] = v
 		result[i].BalanceSheetData = bs[i].BalanceSheetData

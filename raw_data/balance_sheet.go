@@ -1,4 +1,4 @@
-package finance_report
+package raw_data
 
 type BalanceSheetData struct {
 	//	現金及約當現金
