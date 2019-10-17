@@ -21,7 +21,7 @@ func main() {
 	}
 
 	// TODO: merge two operations into one, abstraction is wrong, to many couplings
-	respIS, err := fetcher.FetchIS(string(os.Args[1]), dateRange.NewRange(dateRange.ThisYear))
+	respIS, err := fetcher.FetchIS(string(os.Args[1]), dateRange.NewRange(dateRange.FiveYear))
 	if nil != err {
 		fmt.Printf("fetch with error: %s\n", err)
 		return
@@ -29,7 +29,7 @@ func main() {
 	isParser := response_parser.New(respIS)
 	is := isParser.Parse()
 
-	respBS, err := fetcher.FetchBS(string(os.Args[1]), dateRange.NewRange(dateRange.ThisYear))
+	respBS, err := fetcher.FetchBS(string(os.Args[1]), dateRange.NewRange(dateRange.FiveYear))
 	if nil != err {
 		fmt.Printf("fetch with error: %s\n", err)
 		return

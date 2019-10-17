@@ -15,6 +15,7 @@ const (
 	Today = iota
 	ThisYear
 	LastYear
+	FiveYear
 )
 
 // NewRange - return object with String method
@@ -26,6 +27,8 @@ func NewRange(r rangeType) Ranger {
 		return ThisYearData{}
 	case LastYear:
 		return LastYearData{}
+	case FiveYear:
+		return FiveYearData{}
 	}
 	return ThisYearData{}
 }
